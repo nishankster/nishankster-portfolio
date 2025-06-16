@@ -11,7 +11,7 @@ interface Photo {
 
 export default function PhotoGallery({ photos }: { photos: Photo[] }) {
   const [activeCategory, setActiveCategory] = useState('All')
-  const categories = ['All', ...new Set(photos.map(p => p.category))]
+  const categories = ['All'].concat(Array.from(new Set(photos.map(p => p.category))))
 
   return (
     <div>
@@ -36,4 +36,19 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
           .filter(p => activeCategory === 'All' || p.category === activeCategory)
           .map(photo => (
             <div
-              key
+              key={photo.src}
+              className="relative aspect-square overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                className="object-cover hover:scale-105 transition-transform duration-300"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+          ))}
+      </div>
+    </div>
+  )
+}

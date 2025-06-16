@@ -1,7 +1,7 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 import { FaMedium } from 'react-icons/fa'
+import Image from 'next/image' // Added for image optimization
 
 interface MediumPost {
   title: string
@@ -25,7 +25,7 @@ export default function MediumFeed({ username = 'nishankster' }: { username?: st
         const data = await res.json()
         if (data.status === 'ok') setPosts(data.items.slice(0, 5))
         else setError('Failed to load articles')
-      } catch (err) {
+      } catch {
         setError('Network error')
       } finally {
         setLoading(false)
@@ -65,9 +65,11 @@ export default function MediumFeed({ username = 'nishankster' }: { username?: st
               {post.title}
             </h3>
             {post.thumbnail && (
-              <img
+              <Image
                 src={post.thumbnail}
                 alt={post.title}
+                width={800}
+                height={450}
                 className="w-full h-48 object-cover rounded-lg mb-3"
                 loading="lazy"
               />
