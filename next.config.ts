@@ -8,4 +8,8 @@ const nextConfig = {
   basePath: process.env.NODE_ENV === 'production' ? '/nishankster-portfolio' : '',
 }
 
-module.exports = nextConfig
+module.exports = {
+  output: 'export',
+  images: { unoptimized: true },
+  // No basePath needed for root domains
+}
